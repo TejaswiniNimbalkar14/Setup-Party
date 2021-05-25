@@ -69,10 +69,12 @@ class _SelectShopCategoryState extends State<SelectShopCategory> {
                 Center(
                   child: Tooltip(
                     message: "Click Next to proceed!",
-                    child: RaisedButton(
-                      elevation: 10.0,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        elevation: 10.0,
+                        primary: Colors.pink,
+                      ),
                       child: Text("Next", style: TextStyle(color: Colors.white),),
-                      color: Colors.pink,
                       onPressed: () {
                         if(shopCategories=='cafe')
                           Navigator.push(context, MaterialPageRoute(builder: (context) => CafeServices()));
@@ -99,7 +101,7 @@ class _SelectShopCategoryState extends State<SelectShopCategory> {
     var alertDialog = AlertDialog(
       title: Text("Please select shop category!"),
       actions: [
-        FlatButton(child: Text("Ok", style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),),
+        TextButton(child: Text("Ok", style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),),
           onPressed: () => Navigator.of(context).pop(),   //disable dialog
         ),
       ],

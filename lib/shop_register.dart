@@ -109,7 +109,7 @@ class _ShopRegisterState extends State<ShopRegister> {
           padding: EdgeInsets.fromLTRB(30.0, 50.0, 30.0, 0.0),
           child: Column(
             children: <Widget>[
-              Text("HURRY UP!!! Its time to setup shop!",style: TextStyle(fontSize: 20, color: Colors.brown),),
+              Text("HURRY UP!!! Its time to setup shop!",style: TextStyle(fontSize: 20, color: Colors.brown),textAlign: TextAlign.center,),
               SizedBox(height: 5,),
               Divider(),
               Center(child: Text("Setup Form",style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.brown),)),
@@ -131,7 +131,7 @@ class _ShopRegisterState extends State<ShopRegister> {
                         ),
                         keyboardType: TextInputType.text,
                         validator: (value) {
-                          if(value.toString().isEmpty) {
+                          if(value == null || value.isEmpty) {
                             return 'Shop Name is required';
                           }
                           return null;
@@ -153,7 +153,7 @@ class _ShopRegisterState extends State<ShopRegister> {
                         ),
                         keyboardType: TextInputType.text,
                         validator: (value) {
-                          if(value.toString().isEmpty) {
+                          if(value == null || value.isEmpty) {
                             return 'Shop Location is required';
                           }
                           return null;
@@ -176,7 +176,7 @@ class _ShopRegisterState extends State<ShopRegister> {
                         ),
                         keyboardType: TextInputType.datetime,
                         validator: (value) {
-                          if(value.toString().isEmpty)
+                          if(value == null || value.isEmpty)
                             return 'Scope & Time is required';
                           return null;
                         },
@@ -193,9 +193,9 @@ class _ShopRegisterState extends State<ShopRegister> {
                             children: <Widget>[
                               Checkbox(value: paytm,
                                 activeColor: Colors.pinkAccent,
-                                onChanged: (value){
+                                onChanged: (bool? value){
                                   setState(() {
-                                    //paytm=value;
+                                    paytm=value!;
                                   });
                                 },
                               ),
@@ -206,9 +206,9 @@ class _ShopRegisterState extends State<ShopRegister> {
                             children: <Widget>[
                               Checkbox(value: phonepe,
                                 activeColor: Colors.pinkAccent,
-                                onChanged: (value){
+                                onChanged: (bool? value){
                                   setState(() {
-                                    //phonepe=value;
+                                    phonepe=value!;
                                   });
                                 },
                               ),
@@ -219,9 +219,9 @@ class _ShopRegisterState extends State<ShopRegister> {
                             children: <Widget>[
                               Checkbox(value: gpay,
                                 activeColor: Colors.pinkAccent,
-                                onChanged: (value){
+                                onChanged: (bool? value){
                                   setState(() {
-                                    //gpay=value;
+                                    gpay=value!;
                                   });
                                 },
                               ),
@@ -232,9 +232,9 @@ class _ShopRegisterState extends State<ShopRegister> {
                             children: <Widget>[
                               Checkbox(value: cash,
                                 activeColor: Colors.pinkAccent,
-                                onChanged: (value){
+                                onChanged: (bool? value){
                                   setState(() {
-                                    //cash=value;
+                                    cash=value!;
                                   });
                                 },
                               ),
@@ -358,13 +358,13 @@ class _ShopRegisterState extends State<ShopRegister> {
                       children: <Widget>[
                         Checkbox(value: agree,
                           activeColor: Colors.pinkAccent,
-                          onChanged: (value){
+                          onChanged: (bool? value){
                             setState(() {
-                              //agree=value;
+                              agree=value!;
                             });
                           },
                         ),
-                        Text("I hereby declare that all the information .")
+                        Text("I hereby declare that all the information")
                       ],
                     ),
                     Text("provided is true to my knowledge."),
@@ -372,25 +372,28 @@ class _ShopRegisterState extends State<ShopRegister> {
                     Center(
                       child: Tooltip(
                         message: 'Click to register!',
-                        child: RaisedButton(
-                          elevation: 10.0,
-                          color: Colors.pink,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            elevation: 10.0,
+                            primary: Colors.pink,
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                          ),
                           child: Text("Register", style: TextStyle(color: Colors.white, fontSize: 16),),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                           onPressed: () {
-                            // if(_shopRegisterKey.currentState.validate()) {
-                            //   _shopRegisterKey.currentState.save();
-                            // }
-                            // else if(!(paytm||phonepe||gpay||cash))
-                            //   selectPaymentMode(context);
-                            // else if(_passportImage==null)
-                            //   passportDialog(context);
-                            // else if(_bannerImage==null)
-                            //   bannerDialog(context);
-                            // else if(!agree)
-                            //   agreeDialog(context);
-                            // else
-                            //   setupDialog(context);
+                            if(_shopRegisterKey.currentState!.validate()) {
+                              if(!(paytm||phonepe||gpay||cash))
+                                selectPaymentMode(context);
+                              // else if(_passportImage==null)
+                              //   passportDialog(context);
+                              // else if(_bannerImage==null)
+                              //   bannerDialog(context);
+                              else if(!agree)
+                                agreeDialog(context);
+                              else{
+                                _shopRegisterKey.currentState!.save();
+                                setupDialog(context);
+                              }
+                            }
                           },
                         ),
                       ),
@@ -408,7 +411,7 @@ class _ShopRegisterState extends State<ShopRegister> {
     var alertDialog = AlertDialog(
       title: Text("Please select payment modes!"),
       actions: [
-        FlatButton(child: Text("Ok", style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),),
+        TextButton(child: Text("Ok", style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),),
           onPressed: () => Navigator.of(context).pop(),   //disable dialog
         ),
       ],
@@ -423,7 +426,7 @@ class _ShopRegisterState extends State<ShopRegister> {
     var alertDialog = AlertDialog(
       title: Text("Please upload passport photo!"),
       actions: [
-        FlatButton(child: Text("Ok", style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),),
+        TextButton(child: Text("Ok", style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),),
           onPressed: () => Navigator.of(context).pop(),   //disable dialog
         ),
       ],
@@ -438,7 +441,7 @@ class _ShopRegisterState extends State<ShopRegister> {
     var alertDialog = AlertDialog(
       title: Text("Please upload shop's banner!"),
       actions: [
-        FlatButton(child: Text("Ok", style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),),
+        TextButton(child: Text("Ok", style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),),
           onPressed: () => Navigator.of(context).pop(),   //disable dialog
         ),
       ],
@@ -453,7 +456,7 @@ class _ShopRegisterState extends State<ShopRegister> {
     var alertDialog = AlertDialog(
       title: Text("Agreement is mandatory!"),
       actions: [
-        FlatButton(child: Text("Ok", style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),),
+        TextButton(child: Text("Ok", style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),),
           onPressed: () => Navigator.of(context).pop(),   //disable dialog
         ),
       ],

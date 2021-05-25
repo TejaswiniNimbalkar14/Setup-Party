@@ -60,7 +60,7 @@ class _ProductUploadState extends State<ProductUpload> {
                         ),
                         keyboardType: TextInputType.text,
                         validator: (value) {
-                          if(value.toString().isEmpty) {
+                          if(value == null || value.isEmpty) {
                             return 'Product ID is required';
                           }
                           return null;
@@ -81,7 +81,7 @@ class _ProductUploadState extends State<ProductUpload> {
                         ),
                         keyboardType: TextInputType.text,
                         validator: (value) {
-                          if(value.toString().isEmpty) {
+                          if(value == null || value.isEmpty) {
                             return 'Product Name is required';
                           }
                           return null;
@@ -103,7 +103,7 @@ class _ProductUploadState extends State<ProductUpload> {
                         ),
                         keyboardType: TextInputType.datetime,
                         validator: (value) {
-                          if(value.toString().isEmpty)
+                          if(value == null || value.isEmpty)
                             return 'Product Original Price is required';
                           return null;
                         },
@@ -123,7 +123,7 @@ class _ProductUploadState extends State<ProductUpload> {
                         ),
                         keyboardType: TextInputType.datetime,
                         validator: (value) {
-                          if(value.toString().isEmpty)
+                          if(value == null || value.isEmpty)
                             return 'Product Selling Price is required';
                           return null;
                         },
@@ -176,7 +176,7 @@ class _ProductUploadState extends State<ProductUpload> {
                     ),
                     SizedBox(height: 3.0,),
                     Center(
-                        child: Text("Set properties of your product(Not all Mandatory)", style: TextStyle(fontSize: 16, color: Colors.pink[200]),)
+                        child: Text("Set properties of your product(Not all Mandatory)", style: TextStyle(fontSize: 16, color: Colors.pink[200]), textAlign: TextAlign.center,)
                     ),
                     SizedBox(height: 3.0,),
                     TextFormField(
@@ -268,14 +268,16 @@ class _ProductUploadState extends State<ProductUpload> {
                     Center(
                       child: Tooltip(
                         message: 'Click to upload product!',
-                        child: RaisedButton(
-                          elevation: 10.0,
-                          color: Colors.pink,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.pink,
+                            elevation: 10.0,
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))
+                          ),
                           child: Text("Upload", style: TextStyle(color: Colors.white, fontSize: 16),),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                           onPressed: () {
-                            // if(_productUploadKey.currentState.validate())
-                            //   _productUploadKey.currentState.save();
+                            if(_productUploadKey.currentState!.validate())
+                              _productUploadKey.currentState!.save();
                           },
                         ),
                       ),

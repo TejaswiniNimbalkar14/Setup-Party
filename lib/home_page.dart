@@ -24,14 +24,15 @@ class _HomePageState extends State<HomePage> {
                 height: 80,
                 child: DrawerHeader(child: Text("Have fun with us!", style: TextStyle(color: Colors.white, fontSize: 30), textAlign: TextAlign.center,),
                   decoration: BoxDecoration(
-                      // gradient: LinearGradient(
-                      //     begin: Alignment.topCenter,
-                      //     colors: [
-                      //       Colors.pink[700],
-                      //       Colors.pink[600],
-                      //       Colors.pink[500]
-                      //     ]
-                      // ),
+                      gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            Colors.pink.shade700,
+                            Colors.pink.shade600,
+                            Colors.pink.shade500
+                          ]
+                      ),
                       borderRadius: BorderRadius.circular(15)
                   ),
                 ),
@@ -114,10 +115,12 @@ class _RegisterRadioState extends State<RegisterRadio> {
               SizedBox(height: 20,),
               Tooltip(
                   message: 'Click Next to proceed!',
-                  child: RaisedButton(
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      elevation: 10.0,
+                      primary: Colors.pink,
+                    ),
                     child: Text("Next", style: TextStyle(color: Colors.white),),
-                    elevation: 10.0,
-                    color: Colors.pink,
                     onPressed: () {
                       if(_registerRadio=='user') {
                         Navigator.push(context, MaterialPageRoute(builder: (context) => UserRegister()));
@@ -141,7 +144,7 @@ class _RegisterRadioState extends State<RegisterRadio> {
     var alertDialog = AlertDialog(
       title: Text("Choose one of two!"),
       actions: [
-        FlatButton(child: Text("Ok", style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),),
+        TextButton(child: Text("Ok", style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),),
           onPressed: () => Navigator.of(context).pop(),   //disable dialog
         ),
       ],

@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:untitled/user_login.dart';
 class UserRegister extends StatefulWidget {
@@ -42,10 +44,10 @@ class _UserRegisterState extends State<UserRegister> {
                         ),
                         keyboardType: TextInputType.text,
                         validator: (value) {
-                          if(value.toString().isEmpty) {
+                          if(value == null || value.isEmpty) {
                             return 'Name is required';
                           }
-                          if(!RegExp(r'^[a-zA-Z]+$').hasMatch(value.toString())){
+                          if(!RegExp(r'^[a-zA-Z]+$').hasMatch(value)){
                             return "Enter a valid name";
                           }
                           return null;
@@ -70,11 +72,12 @@ class _UserRegisterState extends State<UserRegister> {
                         ),
                         keyboardType: TextInputType.datetime,
                         validator: (value) {
-                          if(value.toString().isEmpty) {
+                          if(value == null || value.isEmpty) {
                             return 'Birth date is required';
                           }
-                          if(!RegExp("^(?:(?:(?:0?[13578]|1[02])(\/|-|\.)31)\1|(?:(?:0?[1,3-9]|1[0-2])(\/|-|\.)(?:29|30)\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})\$|^(?:0?2(\/|-|\.)29\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))\$|^(?:(?:0?[1-9])|(?:1[0-2]))(\/|-|\.)(?:0?[1-9]|1\d|2[0-8])\4(?:(?:1[6-9]|[2-9]\d)?\d{2})\$").hasMatch(value.toString())){
-                            return "Enter a valid birth date";
+                          //dd/mm/yyyy, dd-mm-yyyy or dd.mm.yyyy, validates leap year
+                          if(!RegExp(r'^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[13-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$').hasMatch(value)){
+                            return "Enter a valid birth date(dd/mm/yyyy, dd-mm-yyyy, dd.mm.yyyy)";
                           }
                           return null;
                         },
@@ -98,13 +101,13 @@ class _UserRegisterState extends State<UserRegister> {
                         ),
                         keyboardType: TextInputType.phone,
                         validator: (value) {
-                          if(value.toString().isEmpty) {
+                          if(value == null || value.isEmpty) {
                             return 'Phone no. is required';
                           }
                           else if(value.toString().length!=10){
                             return "Enter a 10 digit phone no.";
                           }
-                          else if(!RegExp(r'(^[0-9]*$)').hasMatch(value.toString())) {
+                          else if(!RegExp(r'(^[0-9]*$)').hasMatch(value)) {
                             return 'Phone no. must be digit';
                           }
                           return null;
@@ -129,10 +132,10 @@ class _UserRegisterState extends State<UserRegister> {
                         ),
                         keyboardType: TextInputType.emailAddress,
                         validator: (value) {
-                          if(value.toString().isEmpty) {
+                          if(value == null || value.isEmpty) {
                             return 'Email is required';
                           }
-                          if(!RegExp("^[a-zA-Z0-9.!#%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*").hasMatch(value.toString())){
+                          if(!RegExp("^[a-zA-Z0-9.!#%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*").hasMatch(value)){
                             return "Enter a valid email adress";
                           }
                           return null;
@@ -156,11 +159,11 @@ class _UserRegisterState extends State<UserRegister> {
                         hintStyle: TextStyle(color: Colors.black, fontSize: 14.0),
                       ),
                       validator: (value) {
-                        if (value.toString().isEmpty) {
+                        if (value == null || value.isEmpty) {
                           return 'Password is required';
                         }
-                        else if(!RegExp("#.*^(?=.{8,20})(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*\$#").hasMatch(value.toString())) {
-                          return "Strong password";
+                        else if(!RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,12}$').hasMatch(value)) {
+                          return "Strong Password(e.g. Axy#3984, length 8-15)";
                         }
                         return null;
                       },
@@ -169,16 +172,18 @@ class _UserRegisterState extends State<UserRegister> {
                     SizedBox(height: 30,),
                     Tooltip(
                       message: 'Click to register!',
-                      child: RaisedButton(
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.pink,
                           elevation: 10.0,
-                          color: Colors.pink,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))
+                        ),
                           child: Text("Register",
                             style: TextStyle(color: Colors.white, fontSize: 16.0),),
                           onPressed: () {
-                            // if(_userRegisterKey.currentState.validate()) {
-                            //   _userRegisterKey.currentState.save();
-                            // }
+                            if(_userRegisterKey.currentState!.validate()) {
+                              _userRegisterKey.currentState!.save();
+                            }
                           },
                         ),
                     ),
@@ -201,7 +206,7 @@ class _UserRegisterState extends State<UserRegister> {
                       child: Center(
                         child: Tooltip(
                           message: "Register with Google!",
-                          child: FlatButton(
+                          child: TextButton(
                             child: Text("Google", style: TextStyle(color: Colors.white),),
                             onPressed: (){
 
@@ -223,7 +228,7 @@ class _UserRegisterState extends State<UserRegister> {
                       child: Center(
                         child: Tooltip(
                           message: "Register with Facebook!",
-                          child: FlatButton(
+                          child: TextButton(
                             child: Text("Facebook", style: TextStyle(color: Colors.white),),
                             onPressed: (){
 

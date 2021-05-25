@@ -7,7 +7,7 @@ class UserLogin extends StatefulWidget {
 class _UserLoginState extends State<UserLogin> {
   String _loginEmail = "";
   String _loginPassword = "";
-  final GlobalKey<FormState> _userLoginKey = GlobalKey<FormState>();
+  final _userLoginKey = GlobalKey<FormState>();
   final focusPass = FocusNode();
   @override
   Widget build(BuildContext context) {
@@ -38,11 +38,11 @@ class _UserLoginState extends State<UserLogin> {
                       ),
                       keyboardType: TextInputType.emailAddress,
                       validator: (value) {
-                        if(value.toString().isEmpty) {
+                        if(value == null || value.isEmpty) {
                           return 'Email is required';
                         }
-                        if(!RegExp("^[a-zA-Z0-9.!#%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*").hasMatch(value.toString())){
-                          return "Enter a valid email adress";
+                        if(!RegExp("^[a-zA-Z0-9.!#%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*").hasMatch(value)){
+                          return "Enter a valid email address";
                         }
                         return null;
                       },
@@ -65,7 +65,7 @@ class _UserLoginState extends State<UserLogin> {
                         hintStyle: TextStyle(color: Colors.black, fontSize: 14.0),
                       ),
                       validator: (value) {
-                        if (value.toString().isEmpty) {
+                        if (value == null || value.isEmpty) {
                           return 'Password is required';
                         }
                         return null;
@@ -77,15 +77,17 @@ class _UserLoginState extends State<UserLogin> {
                     SizedBox(height: 30,),
                     Tooltip(
                       message: 'Click to login!',
-                      child: RaisedButton(
-                        elevation: 10.0,
-                        color: Colors.pink,
+                      child: ElevatedButton(
                         child: Text("Login", style: TextStyle(color: Colors.white),),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.pink,
+                          elevation: 10.0,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))
+                        ),
                         onPressed: () {
-                          // if(_userLoginKey.currentState.validate()) {
-                          //   _userLoginKey.currentState.save();
-                          // }
+                          if(_userLoginKey.currentState!.validate()) {
+                            _userLoginKey.currentState!.save();
+                          }
                         },
                       ),
                     ),
@@ -108,7 +110,7 @@ class _UserLoginState extends State<UserLogin> {
                       child: Center(
                         child: Tooltip(
                           message: "Log in with Google!",
-                          child: FlatButton(
+                          child: TextButton(
                             child: Text("Google", style: TextStyle(color: Colors.white),),
                             onPressed: (){
 
@@ -130,7 +132,7 @@ class _UserLoginState extends State<UserLogin> {
                       child: Center(
                         child: Tooltip(
                           message: "Log in with Facebook!",
-                          child: FlatButton(
+                          child: TextButton(
                             child: Text("Facebook", style: TextStyle(color: Colors.white),),
                             onPressed: (){
 
