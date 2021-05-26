@@ -11,27 +11,32 @@ class CafeServices extends StatefulWidget {
 
 class _CafeServicesState extends State<CafeServices> {
   //For checkboxes(initially unchecked)
-  bool decoration=false;
-  bool place=false;
-  bool music=false;
-  bool food=false;
-  bool cake=false;
+  bool decoration = false;
+  bool place = false;
+  bool music = false;
+  bool food = false;
+  bool cake = false;
+
   //Widget for cafe services checkboxes
-  Widget _buildCafeServices(){
+  Widget _buildCafeServices() {
     return Column(
       children: <Widget>[
         new ListTile(
-          title: Text("Cafe Services",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+          title: Text(
+            "Cafe Services",
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
         ),
         new Divider(),
         //Decoration
         Row(
           children: <Widget>[
-            Checkbox(value: decoration,
+            Checkbox(
+              value: decoration,
               activeColor: Colors.pinkAccent,
-              onChanged: (bool? value){
+              onChanged: (bool? value) {
                 setState(() {
-                  decoration=value!;
+                  decoration = value!;
                 });
               },
             ),
@@ -41,11 +46,12 @@ class _CafeServicesState extends State<CafeServices> {
         //Place
         Row(
           children: <Widget>[
-            Checkbox(value: place,
+            Checkbox(
+              value: place,
               activeColor: Colors.pinkAccent,
-              onChanged: (bool? value){
+              onChanged: (bool? value) {
                 setState(() {
-                  place=value!;
+                  place = value!;
                 });
               },
             ),
@@ -55,11 +61,12 @@ class _CafeServicesState extends State<CafeServices> {
         //Music
         Row(
           children: <Widget>[
-            Checkbox(value: music,
+            Checkbox(
+              value: music,
               activeColor: Colors.pinkAccent,
-              onChanged: (bool? value){
+              onChanged: (bool? value) {
                 setState(() {
-                  music=value!;
+                  music = value!;
                 });
               },
             ),
@@ -69,11 +76,12 @@ class _CafeServicesState extends State<CafeServices> {
         //Food
         Row(
           children: <Widget>[
-            Checkbox(value: food,
+            Checkbox(
+              value: food,
               activeColor: Colors.pinkAccent,
-              onChanged: (bool? value){
+              onChanged: (bool? value) {
                 setState(() {
-                  food=value!;
+                  food = value!;
                 });
               },
             ),
@@ -83,11 +91,12 @@ class _CafeServicesState extends State<CafeServices> {
         //Cake
         Row(
           children: <Widget>[
-            Checkbox(value: cake,
+            Checkbox(
+              value: cake,
               activeColor: Colors.pinkAccent,
-              onChanged: (bool? value){
+              onChanged: (bool? value) {
                 setState(() {
-                  cake=value!;
+                  cake = value!;
                 });
               },
             ),
@@ -101,7 +110,11 @@ class _CafeServicesState extends State<CafeServices> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Select Servies"),centerTitle: true,backgroundColor: Colors.pink[600],),
+      appBar: AppBar(
+        title: Text("Select Servies"),
+        centerTitle: true,
+        backgroundColor: Colors.pink[600],
+      ),
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.fromLTRB(60.0, 40.0, 60.0, 0.0),
@@ -109,23 +122,32 @@ class _CafeServicesState extends State<CafeServices> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                SizedBox(height: 20,),
-                _buildCafeServices(),   //Cafe services checkbox
-                SizedBox(height: 20,),
+                SizedBox(
+                  height: 20,
+                ),
+                _buildCafeServices(), //Cafe services checkbox
+                SizedBox(
+                  height: 20,
+                ),
                 Center(
                   child: Tooltip(
                     message: "Click Next to proceed!",
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.pink,
-                        elevation: 10.0
+                          primary: Colors.pink, elevation: 10.0),
+                      child: Text(
+                        "Next",
+                        style: TextStyle(color: Colors.white),
                       ),
-                      child: Text("Next", style: TextStyle(color: Colors.white),),
-                      onPressed: (){
-                        if(!(decoration||place||music||food||cake))
-                          selectCheckbox(context);    //alert dialog when no checkbox is checked
+                      onPressed: () {
+                        if (!(decoration || place || music || food || cake))
+                          selectCheckbox(
+                              context); //alert dialog when no checkbox is checked
                         else
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => ShopRegister()));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ShopRegister()));
                       },
                     ),
                   ),
@@ -137,20 +159,25 @@ class _CafeServicesState extends State<CafeServices> {
       ),
     );
   }
+
   void selectCheckbox(BuildContext context) {
     var alertDialog = AlertDialog(
       title: Text("Please select services!"),
       actions: [
-        TextButton(child: Text("Ok", style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),),
-          onPressed: () => Navigator.of(context).pop(),   //disable dialog
+        TextButton(
+          child: Text(
+            "Ok",
+            style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+          ),
+          onPressed: () => Navigator.of(context).pop(), //disable dialog
         ),
       ],
     );
-    showDialog(context: context,
-        builder: (BuildContext context){
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
           return alertDialog;
-        }
-    );
+        });
   }
 }
 
@@ -162,26 +189,31 @@ class CakeShopServices extends StatefulWidget {
 
 class _CakeShopServicesState extends State<CakeShopServices> {
   //for cake shop services(initially unchecked)
-  bool selling=false;
-  bool delivery=false;
-  bool customize=false;
-  bool accessories=false;
+  bool selling = false;
+  bool delivery = false;
+  bool customize = false;
+  bool accessories = false;
+
   //Widget for cake shop services
-  Widget _buildCakeShopServices(){
+  Widget _buildCakeShopServices() {
     return Column(
       children: <Widget>[
         new ListTile(
-          title: Text("Cake Shop Services",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+          title: Text(
+            "Cake Shop Services",
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
         ),
         new Divider(),
         //Cake selling
         Row(
           children: <Widget>[
-            Checkbox(value: selling,
+            Checkbox(
+              value: selling,
               activeColor: Colors.pinkAccent,
-              onChanged: (bool? value){
+              onChanged: (bool? value) {
                 setState(() {
-                  selling=value!;
+                  selling = value!;
                 });
               },
             ),
@@ -191,11 +223,12 @@ class _CakeShopServicesState extends State<CakeShopServices> {
         //Cake Delivery
         Row(
           children: <Widget>[
-            Checkbox(value: delivery,
+            Checkbox(
+              value: delivery,
               activeColor: Colors.pinkAccent,
-              onChanged: (bool? value){
+              onChanged: (bool? value) {
                 setState(() {
-                  delivery=value!;
+                  delivery = value!;
                 });
               },
             ),
@@ -205,11 +238,12 @@ class _CakeShopServicesState extends State<CakeShopServices> {
         //Customization
         Row(
           children: <Widget>[
-            Checkbox(value: customize,
+            Checkbox(
+              value: customize,
               activeColor: Colors.pinkAccent,
-              onChanged: (bool? value){
+              onChanged: (bool? value) {
                 setState(() {
-                  customize=value!;
+                  customize = value!;
                 });
               },
             ),
@@ -219,11 +253,12 @@ class _CakeShopServicesState extends State<CakeShopServices> {
         //Accessories
         Row(
           children: <Widget>[
-            Checkbox(value: accessories,
+            Checkbox(
+              value: accessories,
               activeColor: Colors.pinkAccent,
-              onChanged: (bool? value){
+              onChanged: (bool? value) {
                 setState(() {
-                  accessories=value!;
+                  accessories = value!;
                 });
               },
             ),
@@ -237,30 +272,42 @@ class _CakeShopServicesState extends State<CakeShopServices> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Select Servies"),centerTitle: true,backgroundColor: Colors.pink[600]),
+      appBar: AppBar(
+          title: Text("Select Servies"),
+          centerTitle: true,
+          backgroundColor: Colors.pink[600]),
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.fromLTRB(60.0, 40.0, 60.0, 0.0),
           child: Center(
             child: Column(
               children: <Widget>[
-                SizedBox(height: 20,),
-                _buildCakeShopServices(),   //widget for cake shop services
-                SizedBox(height: 20,),
+                SizedBox(
+                  height: 20,
+                ),
+                _buildCakeShopServices(), //widget for cake shop services
+                SizedBox(
+                  height: 20,
+                ),
                 Center(
                   child: Tooltip(
                     message: "Click Next to proceed!",
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.pink,
-                        elevation: 10.0
+                          primary: Colors.pink, elevation: 10.0),
+                      child: Text(
+                        "Next",
+                        style: TextStyle(color: Colors.white),
                       ),
-                      child: Text("Next", style: TextStyle(color: Colors.white),),
-                      onPressed: (){
-                        if(!(selling||delivery||customize||accessories))
-                          selectCheckbox(context);    //alert dialog when no checkbox is checked
+                      onPressed: () {
+                        if (!(selling || delivery || customize || accessories))
+                          selectCheckbox(
+                              context); //alert dialog when no checkbox is checked
                         else
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => ShopRegister()));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ShopRegister()));
                       },
                     ),
                   ),
@@ -272,20 +319,25 @@ class _CakeShopServicesState extends State<CakeShopServices> {
       ),
     );
   }
+
   void selectCheckbox(BuildContext context) {
     var alertDialog = AlertDialog(
       title: Text("Please select services!"),
       actions: [
-        TextButton(child: Text("Ok", style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),),
-          onPressed: () => Navigator.of(context).pop(),   //disable dialog
+        TextButton(
+          child: Text(
+            "Ok",
+            style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+          ),
+          onPressed: () => Navigator.of(context).pop(), //disable dialog
         ),
       ],
     );
-    showDialog(context: context,
-        builder: (BuildContext context){
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
           return alertDialog;
-        }
-    );
+        });
   }
 }
 
@@ -295,26 +347,30 @@ class GiftShopServices extends StatefulWidget {
 }
 
 class _GiftShopServicesState extends State<GiftShopServices> {
-  bool gselling=false;
-  bool gdelivery=false;
-  bool type=false;
-  bool wrapping=false;
+  bool gselling = false;
+  bool gdelivery = false;
+  bool type = false;
+  bool wrapping = false;
 
-  Widget _buildGiftShopServices(){
+  Widget _buildGiftShopServices() {
     return Column(
       children: <Widget>[
         new ListTile(
-          title: Text("Gift Shop Services",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+          title: Text(
+            "Gift Shop Services",
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
         ),
         new Divider(),
         //Gift selling
         Row(
           children: <Widget>[
-            Checkbox(value: gselling,
+            Checkbox(
+              value: gselling,
               activeColor: Colors.pinkAccent,
-              onChanged: (bool? value){
+              onChanged: (bool? value) {
                 setState(() {
-                  gselling=value!;
+                  gselling = value!;
                 });
               },
             ),
@@ -324,11 +380,12 @@ class _GiftShopServicesState extends State<GiftShopServices> {
         //Gift Delivery
         Row(
           children: <Widget>[
-            Checkbox(value: gdelivery,
+            Checkbox(
+              value: gdelivery,
               activeColor: Colors.pinkAccent,
-              onChanged: (bool? value){
+              onChanged: (bool? value) {
                 setState(() {
-                  gdelivery=value!;
+                  gdelivery = value!;
                 });
               },
             ),
@@ -338,11 +395,12 @@ class _GiftShopServicesState extends State<GiftShopServices> {
         //Gift types according to occassions
         Row(
           children: <Widget>[
-            Checkbox(value: type,
+            Checkbox(
+              value: type,
               activeColor: Colors.pinkAccent,
-              onChanged: (bool? value){
+              onChanged: (bool? value) {
                 setState(() {
-                  type=value!;
+                  type = value!;
                 });
               },
             ),
@@ -352,11 +410,12 @@ class _GiftShopServicesState extends State<GiftShopServices> {
         //Gift Wrapping
         Row(
           children: <Widget>[
-            Checkbox(value: wrapping,
+            Checkbox(
+              value: wrapping,
               activeColor: Colors.pinkAccent,
-              onChanged: (bool? value){
+              onChanged: (bool? value) {
                 setState(() {
-                  wrapping=value!;
+                  wrapping = value!;
                 });
               },
             ),
@@ -366,33 +425,47 @@ class _GiftShopServicesState extends State<GiftShopServices> {
       ],
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Select Servies"),centerTitle: true,backgroundColor: Colors.pink[600],),
+      appBar: AppBar(
+        title: Text("Select Servies"),
+        centerTitle: true,
+        backgroundColor: Colors.pink[600],
+      ),
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.fromLTRB(60.0, 40.0, 30.0, 0.0),
           child: Center(
             child: Column(
               children: <Widget>[
-                SizedBox(height: 20,),
+                SizedBox(
+                  height: 20,
+                ),
                 _buildGiftShopServices(),
-                SizedBox(height: 20,),
+                SizedBox(
+                  height: 20,
+                ),
                 Center(
                   child: Tooltip(
                     message: "Click Next to proceed!",
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.pink,
-                        elevation: 10.0
+                          primary: Colors.pink, elevation: 10.0),
+                      child: Text(
+                        "Next",
+                        style: TextStyle(color: Colors.white),
                       ),
-                      child: Text("Next", style: TextStyle(color: Colors.white),),
-                      onPressed: (){
-                        if(!(gselling||gdelivery||type||wrapping))
-                          selectCheckbox(context);    //alert dialog when no checkbox is checked
+                      onPressed: () {
+                        if (!(gselling || gdelivery || type || wrapping))
+                          selectCheckbox(
+                              context); //alert dialog when no checkbox is checked
                         else
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => ShopRegister()));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ShopRegister()));
                       },
                     ),
                   ),
@@ -404,20 +477,25 @@ class _GiftShopServicesState extends State<GiftShopServices> {
       ),
     );
   }
+
   void selectCheckbox(BuildContext context) {
     var alertDialog = AlertDialog(
       title: Text("Please select services!"),
       actions: [
-        TextButton(child: Text("Ok", style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),),
-          onPressed: () => Navigator.of(context).pop(),   //disable dialog
+        TextButton(
+          child: Text(
+            "Ok",
+            style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+          ),
+          onPressed: () => Navigator.of(context).pop(), //disable dialog
         ),
       ],
     );
-    showDialog(context: context,
-        builder: (BuildContext context){
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
           return alertDialog;
-        }
-    );
+        });
   }
 }
 
@@ -427,28 +505,32 @@ class MeetingPointServices extends StatefulWidget {
 }
 
 class _MeetingPointServicesState extends State<MeetingPointServices> {
-  bool achall=false;
-  bool nonachall=false;
-  bool electricity=false;
-  bool presentation=false;
-  bool generator=false;
-  bool mfood=false;
+  bool achall = false;
+  bool nonachall = false;
+  bool electricity = false;
+  bool presentation = false;
+  bool generator = false;
+  bool mfood = false;
 
-  Widget _buildMeetingPointServices(){
+  Widget _buildMeetingPointServices() {
     return Column(
       children: <Widget>[
         new ListTile(
-          title: Text("Meeting Point Services",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+          title: Text(
+            "Meeting Point Services",
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
         ),
         new Divider(),
         //AC Hall
         Row(
           children: <Widget>[
-            Checkbox(value: achall,
+            Checkbox(
+              value: achall,
               activeColor: Colors.pinkAccent,
-              onChanged: (bool? value){
+              onChanged: (bool? value) {
                 setState(() {
-                  achall=value!;
+                  achall = value!;
                 });
               },
             ),
@@ -458,11 +540,12 @@ class _MeetingPointServicesState extends State<MeetingPointServices> {
         //Non-AC Hall
         Row(
           children: <Widget>[
-            Checkbox(value: nonachall,
+            Checkbox(
+              value: nonachall,
               activeColor: Colors.pinkAccent,
-              onChanged: (bool? value){
+              onChanged: (bool? value) {
                 setState(() {
-                  nonachall=value!;
+                  nonachall = value!;
                 });
               },
             ),
@@ -472,11 +555,12 @@ class _MeetingPointServicesState extends State<MeetingPointServices> {
         //Electronic Facility
         Row(
           children: <Widget>[
-            Checkbox(value: electricity,
+            Checkbox(
+              value: electricity,
               activeColor: Colors.pinkAccent,
-              onChanged: (bool? value){
+              onChanged: (bool? value) {
                 setState(() {
-                  electricity=value!;
+                  electricity = value!;
                 });
               },
             ),
@@ -486,11 +570,12 @@ class _MeetingPointServicesState extends State<MeetingPointServices> {
         //Presentation Facility
         Row(
           children: <Widget>[
-            Checkbox(value: presentation,
+            Checkbox(
+              value: presentation,
               activeColor: Colors.pinkAccent,
-              onChanged: (bool? value){
+              onChanged: (bool? value) {
                 setState(() {
-                  presentation=value!;
+                  presentation = value!;
                 });
               },
             ),
@@ -500,11 +585,12 @@ class _MeetingPointServicesState extends State<MeetingPointServices> {
         //Generator Facility
         Row(
           children: <Widget>[
-            Checkbox(value: generator,
+            Checkbox(
+              value: generator,
               activeColor: Colors.pinkAccent,
-              onChanged: (bool? value){
+              onChanged: (bool? value) {
                 setState(() {
-                  generator=value!;
+                  generator = value!;
                 });
               },
             ),
@@ -514,11 +600,12 @@ class _MeetingPointServicesState extends State<MeetingPointServices> {
         //Food Facility
         Row(
           children: <Widget>[
-            Checkbox(value: mfood,
+            Checkbox(
+              value: mfood,
               activeColor: Colors.pinkAccent,
-              onChanged: (bool? value){
+              onChanged: (bool? value) {
                 setState(() {
-                  mfood=value!;
+                  mfood = value!;
                 });
               },
             ),
@@ -528,32 +615,49 @@ class _MeetingPointServicesState extends State<MeetingPointServices> {
       ],
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Select Servies"),centerTitle: true,backgroundColor: Colors.pink[600],),
+      appBar: AppBar(
+        title: Text("Select Servies"),
+        centerTitle: true,
+        backgroundColor: Colors.pink[600],
+      ),
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.fromLTRB(60.0, 40.0, 60.0, 0.0),
           child: Center(
             child: Column(
               children: <Widget>[
-                SizedBox(height: 20,),
+                SizedBox(
+                  height: 20,
+                ),
                 _buildMeetingPointServices(),
                 Center(
                   child: Tooltip(
                     message: "Click Next to proceed!",
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.pink,
-                        elevation: 10.0
+                          primary: Colors.pink, elevation: 10.0),
+                      child: Text(
+                        "Next",
+                        style: TextStyle(color: Colors.white),
                       ),
-                      child: Text("Next", style: TextStyle(color: Colors.white),),
-                      onPressed: (){
-                        if(!(achall||nonachall||electricity||generator||presentation||mfood))
-                          selectCheckbox(context);    //alert dialog when no checkbox is checked
+                      onPressed: () {
+                        if (!(achall ||
+                            nonachall ||
+                            electricity ||
+                            generator ||
+                            presentation ||
+                            mfood))
+                          selectCheckbox(
+                              context); //alert dialog when no checkbox is checked
                         else
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => ShopRegister()));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ShopRegister()));
                       },
                     ),
                   ),
@@ -565,20 +669,24 @@ class _MeetingPointServicesState extends State<MeetingPointServices> {
       ),
     );
   }
+
   void selectCheckbox(BuildContext context) {
     var alertDialog = AlertDialog(
       title: Text("Please select services!"),
       actions: [
-        TextButton(child: Text("Ok", style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),),
-          onPressed: () => Navigator.of(context).pop(),   //disable dialog
+        TextButton(
+          child: Text(
+            "Ok",
+            style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+          ),
+          onPressed: () => Navigator.of(context).pop(), //disable dialog
         ),
       ],
     );
-    showDialog(context: context,
-        builder: (BuildContext context){
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
           return alertDialog;
-        }
-    );
+        });
   }
 }
-
